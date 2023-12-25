@@ -31,4 +31,4 @@ COPY --from=build /app/dist ./dist
 EXPOSE 3000
 
 # Command to run your application
-CMD ["npm", "run start:dev"]
+CMD ["npm run start:dev"]
