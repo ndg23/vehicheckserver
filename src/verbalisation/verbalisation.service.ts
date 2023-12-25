@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateVerbalisationDto } from './dto/create-verbalisation.dto';
 import { UpdateVerbalisationDto } from './dto/update-verbalisation.dto';
+import { Verbalisation } from './entities/verbalisation.entity';
 
 @Injectable()
 export class VerbalisationService {
-  create(createVerbalisationDto: CreateVerbalisationDto) {
-    return 'This action adds a new verbalisation';
+  constructor(
+    @InjectRepository(Verbalisation)
+    private verbalisationRepository: Repository<Verbalisation>,
+  ) {}
+
+  async create(createVerbalisationDto: CreateVerbalisationDto): Promise<Verbalisation> {
+    const newVerbalisation = this.verbalisationRepository.create(createVerbalisationDto);
+    return await this.verbalisationRepository.save(newVerbalisation);
   }
 
-  findAll() {
-    return `This action returns all verbalisation`;
+  async findAll(): Promise<Verbalisation[]> {
+    return await this.verbalisationRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} verbalisation`;
+  async findOne(id: number): Promise<Verbalisation> {
+    const verbalisation = await this.verbalisationRepository.findOne({where:{id}});
+    if (!verbalisation) {
+      throw new NotFoundException(`Verbalisation with ID ${id} not found`);
+    }
+    return verbalisation;
   }
 
-  update(id: number, updateVerbalisationDto: UpdateVerbalisationDto) {
-    return `This action updates a #${id} verbalisation`;
+  async update(id: number, updateVerbalisationDto: UpdateVerbalisationDto): Promise<Verbalisation> {
+    const existingVerbalisation = await this.verbalisationRepository.findOne({where:{id}});
+    this.verbalisationRepository.merge(existingVerbalisation, updateVerbalisationDto);
+    return await this.verbalisationRepository.save(existingVerbalisation);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} verbalisation`;
+  async remove(id: number): Promise<void> {
+    const verbalisation = await this.verbalisationRepository.findOne({where:{id}});
+    await this.verbalisationRepository.remove(verbalisation);
   }
 }

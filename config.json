@@ -1,0 +1,15 @@
+{
+    "token_hmac_secret_key": "f61aac3cf424c1c5bc24e9ea33dea083aabda511f6b9d268d5899770c02ff909",
+    "admin_password": "d0683813-0916-4c49-979f-0e08a686b727",
+    "admin_secret": "4e9eafcf-0120-4ddd-b668-8dc40072c78e",
+    "api_key": "d7627bb6-2292-4911-82e1-615c0ed3eebb",
+    "admin": true,
+    "allowed_origins": [
+      "*"
+    ],
+    "allow_subscribe_for_client": true,
+    "proxy_connect_endpoint": "http://192.168.1.19:8001/centrifugo/connect",
+    "proxy_http_headers": [
+      "*"
+    ]
+  }

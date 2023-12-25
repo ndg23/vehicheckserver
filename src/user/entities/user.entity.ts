@@ -1,38 +1,68 @@
 // user.entity.ts
+import { UserSexe } from 'src/common/enum/sexe.type';
+import { UserRole } from 'src/common/enum/user.role';
 import { Control } from 'src/control/entities/control.entity';
 import { Vehicle } from 'src/vehicle/entities/vehicle.entity';
 import { Verbalisation } from 'src/verbalisation/entities/verbalisation.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from 'typeorm';
 
-export enum UserRole {
-  USER = 'user',
-  ADMIN = 'admin',
-}
+
+const toLowerCase = {
+    to: (entityValue: string) => entityValue.toLowerCase(),
+    from: (databaseValue: string) => databaseValue,
+};
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class User extends BaseEntity {
+    @PrimaryGeneratedColumn()
+    id: number;
 
-  @Column()
-  username: string;
+    @Column()
+    fullname: string;
+    @Column()
+    phone: string;
+    @Column({
+        type: "varchar",
+        unique: true,
+        transformer: toLowerCase,
+    })
+    email: string;
+    @Column()
+    nationality: string;
+    @Column()
+    birth: string;
+    @Column()
+    card_type: string;
+    @Column({
+        type: "varchar",
+        transformer: toLowerCase,
 
-  @Column()
-  password: string;
+    })
+    profession: string;
+    @Column({
+        type: 'enum',
+        enum: UserSexe,
+        default: UserSexe.MALE,
+    })
+    sexe: UserSexe;
+    @Column({
+        type: "varchar"
+    })
+    password: string;
 
-  @Column({
-    type: 'enum',
-    enum: UserRole,
-    default: UserRole.USER,
-  })
-  role: UserRole;
+    @Column({
+        type: 'enum',
+        enum: UserRole,
+        default: UserRole.DRIVER,
+    })
+    role: UserRole;
 
-  @OneToMany(() =>Vehicle, (vehicle) => vehicle.user)
-  vehicles: Vehicle[];
-  
-  @OneToMany(() =>Verbalisation, (verbalisation) => verbalisation.user)
-  verbalisations: [];
-  
-  @OneToMany(() => Control, (control) => control.user)
-  controls: Control[];
+    @OneToMany(() => Vehicle, (vehicle) => vehicle.user)
+    vehicles: Vehicle[];
+
+    @OneToMany(() => Verbalisation, (verbalisation) => verbalisation.user)
+    verbalisations: [];
+
+    @OneToMany(() => Control, (control) => control.user)
+    controls: Control[];
 }
