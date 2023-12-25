@@ -1,11 +1,11 @@
 // ReportEntry.ts
 import { ReportEntryType } from 'src/common/enum/report.entry';
 import { Vehicle } from 'src/vehicle/entities/vehicle.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, BaseEntity } from 'typeorm';
 
 
 @Entity()
-export class ReportEntry {
+export class ReportEntry extends BaseEntity{
   @PrimaryGeneratedColumn()
   id: number;
 
