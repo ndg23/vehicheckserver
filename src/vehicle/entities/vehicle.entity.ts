@@ -1,6 +1,6 @@
 // Vehicle.ts
 import { VehicleType } from 'src/common/enum/vehicle.type';
-import { Control } from 'src/control/entities/control.entity';
+// import { Control } from 'src/control/entities/control.entity';
 import { ReportEntry } from 'src/report/entities/report.entity';
 import { User } from 'src/user/entities/user.entity';
 import { Verbalisation } from 'src/verbalisation/entities/verbalisation.entity';
@@ -34,8 +34,6 @@ export class Vehicle {
     year: number;
     @ManyToOne(() => User, (user) => user.vehicles)
     user: User
-    @OneToMany(() => Control, (control) => control.vehicle)
-    controls: Control[];
     @OneToMany(() => ReportEntry, (report) => report.vehicle)
     reportEntries: ReportEntry[];
     

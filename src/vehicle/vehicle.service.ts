@@ -28,6 +28,13 @@ export class VehicleService {
     }
     return vehicle;
   }
+  async byLicencePlate(licencePlate: string): Promise<Vehicle> {
+    const vehicle = await this.vehicleRepository.findOne({where:{licensePlate:licencePlate}});
+    if (!vehicle) {
+      throw new NotFoundException(`Vehicle with Licence:  ${licencePlate} not found`);
+    }
+    return vehicle;
+  }
 
   async update(id: number, updateVehicleDto: UpdateVehicleDto): Promise<Vehicle> {
     const existingVehicle = await this.vehicleRepository.findOne({where:{id}});

@@ -21,6 +21,10 @@ export class VehicleController {
   findOne(@Param('id') id: string) {
     return this.vehicleService.findOne(+id);
   }
+  @Get(':id')
+  findOneByLicencePlate(@Param('id') id: string) {
+    return this.vehicleService.findOne(+id);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateVehicleDto: UpdateVehicleDto) {
