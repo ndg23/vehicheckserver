@@ -3,10 +3,10 @@ import { VehicleType } from 'src/common/enum/vehicle.type';
 // import { Control } from 'src/control/entities/control.entity';
 import { ReportEntry } from 'src/report/entities/report.entity';
 import { User } from 'src/user/entities/user.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, BaseEntity } from 'typeorm';
 
 @Entity()
-export class Vehicle {
+export class Vehicle extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

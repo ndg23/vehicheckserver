@@ -23,7 +23,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swagger);
 
   const config: ConfigService = app.get(ConfigService);
-  const port: number = 3001;
+  const port: number = 3000;
   app.enableCors({
     allowedHeaders: '*',
   });

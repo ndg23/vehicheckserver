@@ -33,17 +33,7 @@ services:
       - db
     volumes:
       - ./src:/app/src
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    container_name: pgadmin4
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=marvinndg242@gmail.com
-      - PGADMIN_DEFAULT_PASSWORD=anto19998
-    ports:
-      - '5050:80'
-    depends_on:
-      - db
+
 volumes:
   pgdata003:
   minio_data:

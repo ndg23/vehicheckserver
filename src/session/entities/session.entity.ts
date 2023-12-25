@@ -1,7 +1,7 @@
 import { ReportEntry } from "src/report/entities/report.entity";
-import { Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-
-export class Session {
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+@Entity()
+export class Session extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -11,16 +11,10 @@ export class Session {
     date: Date;
     @Column()
     isActive: boolean
-    @Column({
-        type: "date",
-        default: Date
-    })
+    @Column()
     startedAt: Date;
 
-    @Column({
-        type: "date",
-        default: Date
-    })
+    @Column()
     stopAt: Date;
 
     @OneToMany(()=>ReportEntry,(rep)=>rep.session)
