@@ -3,7 +3,6 @@ import { UserSexe } from 'src/common/enum/sexe.type';
 import { UserRole } from 'src/common/enum/user.role';
 // import { Control } from 'src/control/entities/control.entity';
 import { Vehicle } from 'src/vehicle/entities/vehicle.entity';
-import { Verbalisation } from 'src/verbalisation/entities/verbalisation.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from 'typeorm';
 
 
@@ -60,7 +59,5 @@ export class User extends BaseEntity {
     @OneToMany(() => Vehicle, (vehicle) => vehicle.user)
     vehicles: Vehicle[];
 
-    @OneToMany(() => Verbalisation, (verbalisation) => verbalisation.user)
-    verbalisations: [];
 
 }
