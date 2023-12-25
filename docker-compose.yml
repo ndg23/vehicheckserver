@@ -22,33 +22,13 @@ services:
       nofile:
         soft: 65535
         hard: 65535
- 
-  caddy:
-    image: caddy:latest
-    ports:
-      - '81:80'
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile  # Mount the Caddyfile
-    depends_on:
-      - mercure
-  # minio:
-  #   image: docker.io/bitnami/minio:2022
-  #   environment:
-  #     MINIO_ROOT_USER: anto
-  #     MINIO_ROOT_PASSWORD: anto19#00
-  #   ports:
-  #     - '9000:9000'
-  #     - '9001:9001'
-  #   volumes:
-  #     - 'minio_data:/data'
-  
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: VS_Container
     ports:
-      - '3001:3001'
+      - '3000:3000'
     depends_on:
       - db
     volumes:

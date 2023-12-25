@@ -1,34 +1,16 @@
-# Stage 1: Build the application
-FROM node:18-alpine AS build
-
+# Build stage
+FROM node:18.16.0-alpine3.17 AS build
 WORKDIR /app
-
 COPY package*.json ./
-
-# Install app dependencies
 RUN yarn install
-
 COPY . .
+RUN yarn run build
 
-# Build the application
-RUN yarn build
-
-# Stage 2: Create a production image
-FROM node:18-alpine AS production
-
+# Production stage
+FROM node:18.16.0-alpine3.17
 WORKDIR /app
-
-COPY --from=build /app/package*.json ./
-
-# Install only production dependencies using yarn
-RUN apk --no-cache add yarn \
-    && yarn install --production
-
-# Copy the built application from the build stage
 COPY --from=build /app/dist ./dist
-
-# Expose the port your app runs on
+COPY package*.json ./
+RUN yarn install
 EXPOSE 3000
-
-# Command to run your application
-CMD ["npm run start:dev"]
+# CMD ["npm", "run", "start:dev"]
